@@ -1,0 +1,81 @@
+type Query {
+    authenticate(email: String!, password: String!): String
+    wakeup: String
+}
+
+type User{
+    id: Int!
+    firstName: String!
+    lastName: String
+    email: String!
+    phone: String
+    password: String!
+    address: Address
+    orders: [Order]
+    role: String
+    favorite: [Int]
+}
+
+type Order{
+    id: Int!
+    userId: User
+    sessionID: String
+    orderItems: [OrderItem]
+    status: Status
+}
+
+type OrderItem{
+    id: Int
+    order: Order
+    funkoId: Int
+    amount: Int
+    pricePerItem: Int
+}
+
+input OrderInput{
+    id: Int
+    userId: UserInput
+    sessionID: String
+    orderItems: [OrderItemInput]
+    status: Status
+}
+
+input OrderItemInput{
+    id: Int
+    order_id: Int
+    funkoId: Int
+    amount: Int
+    pricePerItem: Int
+}
+
+enum Status{
+    PENDING
+    PAID
+    FINISHED
+}
+
+type Address{
+    id:Int!
+    userId:Int!
+    locality:String
+    postOffice:String
+}
+
+input UserInput{
+    id: Int
+    firstName:String!
+    lastName:String
+    email:String!
+    phone:String
+    password:String!
+    address: AddressInput
+    orders:[OrderInput]
+    role: String
+}
+
+input AddressInput{
+    id: Int
+    userId: Int!
+    locality: String
+    postOffice: String
+}
